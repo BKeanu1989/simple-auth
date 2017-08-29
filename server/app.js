@@ -3,13 +3,24 @@ var path = require('path');
 var favicon = require('serve-favicon');
 const http = require('http');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var index = require('../routes/index');
 var users = require('../routes/users');
 
-require('./mongoose');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
+// require('./mongoose');
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/simple-api', {useMongoClient: true});
+
+var db = mongoose.connection;
+
+
 
 var app = express();
 // var server = http.createServer(app);
@@ -25,8 +36,17 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'simple auth xyz',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
 
 app.use('/', index);
 app.use('/users', users);
@@ -35,7 +55,9 @@ app.use(function(req,res,next) {
   console.log("req headers:",req.headers);
   console.log("req session:",req.session);
   next();
-})
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

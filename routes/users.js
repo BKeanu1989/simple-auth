@@ -40,8 +40,8 @@ router.post('/login', (req,res,next) => {
 			bcrypt.compare(password, hash).then(function(valid) {
     // valid == true
 		    if (valid) {
-		    	req.headers["test"] = 'test';
-		    	console.log(user);
+		    	console.log(user._id);
+		    	req.session.userId = user._id;
 		    	console.log('matching passwords');
 					res.redirect('/');
 
