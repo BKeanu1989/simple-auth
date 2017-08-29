@@ -5,7 +5,7 @@
 
 
 <% all_users.forEach((user) => { %>
-	<h2><%= user.username %></h2>
+	<a href="/users/<%= user.username %>"><%= user.username %></a>
 <% }); %>
 
 
