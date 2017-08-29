@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+<h1>All Users</h1>
+
+
+
+<% all_users.forEach((user) => { %>
+	<h2><%= user.username %></h2>
+<% }); %>
+
+
+<%- include('../partials/footer') %>
