@@ -14,7 +14,7 @@ var isAuthenticated = function(req,res,next) {
   } else {
   	console.log('not logged in');
   	// redirect with data
-  	res.render(`${userViewPath}/login`, {username: ''});
+  	res.render(`${userViewPath}/login`);
   }
 };
 

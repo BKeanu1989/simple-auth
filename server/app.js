@@ -48,6 +48,11 @@ app.use(session({
   })
 }));
 
+app.use(function(req,res,next) {
+  res.locals.user = req.session.userId;
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 
@@ -56,8 +61,6 @@ app.use(function(req,res,next) {
   console.log("req session:",req.session);
   next();
 });
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

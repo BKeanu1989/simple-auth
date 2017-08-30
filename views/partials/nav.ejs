@@ -1,1 +1,5 @@
-<a href="/users/login">LOGIN</a>
+<% if (user) { %>
+	<a href="/users/logout">LOGOUT</a>
+<% } else { %>
+	<a href="/users/login">LOGIN</a>
+<% } %>
