@@ -56,7 +56,7 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/login', (req,res,next) => {
-	res.render(`${userViewPath}/login`, {username:''});
+	res.render(`${userViewPath}/login`);
 })
 
 router.post('/login', (req,res,next) => {
@@ -71,7 +71,8 @@ router.post('/login', (req,res,next) => {
 		    	req.session.userId = user._id;
 					res.redirect('/');
 		    } else {
-		    	res.render(`${userViewPath}/login`, {username: username});
+		    	var invalidPassword = true;
+		    	res.render(`${userViewPath}/login`, {username: username, invalidPassword});
 		    }
 
 			});
