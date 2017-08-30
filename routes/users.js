@@ -8,12 +8,8 @@ const userViewPath = '../views/user';
 
 var isAuthenticated = function(req,res,next) {
   if (req.session.userId) {
-  	console.log('logged id');
-  	// if userID == user._id
   	next();
   } else {
-  	console.log('not logged in');
-  	// redirect with data
   	res.render(`${userViewPath}/login`);
   }
 };
@@ -23,15 +19,12 @@ var isOwnerOrAdmin = function(req,res,next) {
 		User.findOne({_id: req.session.userId}).then((user) => {
 			if (user.admin || user.username == req.params.username) {
 				next();
-
 			} else {
-				throw new Error('nope');
+				throw new Error('User is not authorized to do that action.');
 			}
 		}).catch((err) => {
 			console.error(err);
-			// res.send(404);
-			res.send('not allowed');
-
+			res.redirect('/?notAllowed=true');
 		})
 	}
 }
