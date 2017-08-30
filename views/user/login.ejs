@@ -6,7 +6,7 @@
 <body>
 	<h1>Login</h1>	
 <form action="/users/login" method="POST">
-	<input type="text" name="username" placeholder="username" value="<%= username %>">
+	<input type="text" name="username" placeholder="username" value="<%= (!global.username && typeof username == 'undefined') ? '' : username %>">
 	<input type="password" name="password">
 	<button>Submit</button>
 </form>

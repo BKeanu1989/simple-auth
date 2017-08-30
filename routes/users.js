@@ -75,20 +75,17 @@ router.post('/login', (req,res,next) => {
 			bcrypt.compare(password, hash).then(function(valid) {
     // valid == true
 		    if (valid) {
-		    	console.log(user._id);
 		    	req.session.userId = user._id;
-		    	console.log('matching passwords');
 					res.redirect('/');
-
 		    } else {
-  	// redirect with data
-
-		    	res.redirect(`${userViewPath}/login`);
+		    	res.render(`${userViewPath}/login`, {username: username});
 		    }
 
 			});
 	}).catch((err) => {
 		console.log('no user found');
+  	res.render(`${userViewPath}/login`);
+
 	})
 });
 
