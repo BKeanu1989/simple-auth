@@ -4,13 +4,13 @@
 	<title>Login</title>
 </head>
 <body>
-	<h1>Login</h1>	
+	<h1>Login</h1>
 <form action="/users/login" method="POST">
 	<input type="text" name="username" placeholder="username" value="<%= (!global.username && typeof username == 'undefined') ? '' : username %>">
 	<input type="password" name="password">
 	<button>Submit</button>
 </form>
-
+x
 <%- include('../partials/errorMessage', {errorMessage: 'Ungültiges Passwort'}) %>
 </body>
 </html>
